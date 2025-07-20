@@ -28,7 +28,7 @@ const styles = `
   filter: blur(80px);
   opacity: 0.7;
   mix-blend-mode: lighten;
-  animation: moveLight 12s linear infinite alternate;
+  animation: moveLight 5s linear infinite alternate;
 }
 .bloom1 {
   width: 420px; height: 420px;
