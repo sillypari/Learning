@@ -66,17 +66,19 @@ function getPasswordStrength(password) {
   return { label: 'Weak', color: 'red' };
 }
 
-function Login() {
+function Signup() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [remember, setRemember] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const navigate = useNavigate();
   const strength = getPasswordStrength(password);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Mock authentication
+    // Mock signup
     navigate('/home');
   };
 
@@ -113,9 +115,31 @@ function Login() {
           <AmiArchiveLogo />
         </div>
         <div style={{ fontWeight: 700, fontSize: '1.3rem', color: '#5B3DF6', marginBottom: 6 }}>AmiArchive</div>
-        <h2 style={{ color: '#181828', marginBottom: '6px', fontWeight: 800, fontSize: '2rem', letterSpacing: '0.01em', textAlign: 'center' }}>Welcome Back!</h2>
-        <div style={{ color: '#444', marginBottom: 24, fontSize: 16, textAlign: 'center' }}>Sign in to access your study materials</div>
+        <h2 style={{ color: '#181828', marginBottom: '6px', fontWeight: 800, fontSize: '2rem', letterSpacing: '0.01em', textAlign: 'center' }}>Create your account</h2>
+        <div style={{ color: '#444', marginBottom: 24, fontSize: 16, textAlign: 'center' }}>Sign up to access your study materials</div>
         <form onSubmit={handleSubmit} style={{ width: '100%' }}>
+          <div style={{ marginBottom: 12 }}>
+            <label style={{ fontWeight: 500, color: '#222', fontSize: 14 }}>Name</label>
+            <input
+              type="text"
+              placeholder="Enter your name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              style={{
+                width: '100%',
+                padding: '12px 16px',
+                marginTop: 6,
+                borderRadius: '10px',
+                border: '1px solid #e0e0e0',
+                background: '#f7f7fa',
+                color: '#222',
+                fontSize: '1rem',
+                outline: 'none',
+                marginBottom: 0,
+              }}
+            />
+          </div>
           <div style={{ marginBottom: 12 }}>
             <label style={{ fontWeight: 500, color: '#222', fontSize: 14 }}>Email Address</label>
             <input
@@ -182,17 +206,44 @@ function Login() {
               </div>
             )}
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', margin: '10px 0 18px 0' }}>
-            <label style={{ display: 'flex', alignItems: 'center', fontSize: 14, color: '#222' }}>
+          <div style={{ marginBottom: 18 }}>
+            <label style={{ fontWeight: 500, color: '#222', fontSize: 14 }}>Confirm Password</label>
+            <div style={{ position: 'relative' }}>
               <input
-                type="checkbox"
-                checked={remember}
-                onChange={e => setRemember(e.target.checked)}
-                style={{ marginRight: 6 }}
+                type={showConfirm ? 'text' : 'password'}
+                placeholder="Confirm your password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                style={{
+                  width: '100%',
+                  padding: '12px 40px 12px 16px',
+                  marginTop: 6,
+                  borderRadius: '10px',
+                  border: '1px solid #e0e0e0',
+                  background: '#f7f7fa',
+                  color: '#222',
+                  fontSize: '1rem',
+                  outline: 'none',
+                }}
               />
-              Remember me
-            </label>
-            <Link to="#" style={{ color: '#5B3DF6', fontSize: 14, textDecoration: 'none', fontWeight: 500 }}>Forgot Password?</Link>
+              <span
+                onClick={() => setShowConfirm((v) => !v)}
+                style={{
+                  position: 'absolute',
+                  right: 12,
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  cursor: 'pointer',
+                  color: '#888',
+                  fontSize: 18,
+                  userSelect: 'none',
+                }}
+                title={showConfirm ? 'Hide password' : 'Show password'}
+              >
+                {showConfirm ? '🙈' : '👁️'}
+              </span>
+            </div>
           </div>
           <button
             type="submit"
@@ -211,7 +262,7 @@ function Login() {
               marginBottom: 12,
             }}
           >
-            Sign In
+            Sign Up
           </button>
         </form>
         <div style={{ width: '100%', textAlign: 'center', margin: '16px 0 8px 0', color: '#888', fontSize: 14, position: 'relative' }}>
@@ -241,12 +292,12 @@ function Login() {
           Continue with Google
         </button>
         <div style={{ marginTop: 10, fontSize: 15, color: '#444', textAlign: 'center' }}>
-          Don&apos;t have an account?{' '}
-          <Link to="/signup" style={{ color: '#5B3DF6', fontWeight: 600, textDecoration: 'none' }}>Sign up</Link>
+          Already have an account?{' '}
+          <Link to="/login" style={{ color: '#5B3DF6', fontWeight: 600, textDecoration: 'none' }}>Sign in</Link>
         </div>
       </div>
     </div>
   );
 }
 
-export default Login; 
+export default Signup; 
